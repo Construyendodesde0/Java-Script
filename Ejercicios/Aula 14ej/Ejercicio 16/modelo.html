@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    
+    <header>
+<h1>Vamos a contar!</h1>
+
+    </header>
+    <section>
+        <div class="input-group">
+            <label for="inicio">Número de inicio:</label>
+            <input type="number" id="inicio" placeholder="Ejemplo: 1">
+        </div>
+        
+        <div class="input-group">
+            <label for="fin">Número final:</label>
+            <input type="number" id="fin" placeholder="Ejemplo: 10">
+        </div>
+        
+        <div class="input-group">
+            <label for="paso">Contar de a:</label>
+            <input type="number" id="paso" placeholder="Ejemplo: 1" value="1">
+        </div>
+        
+        <button onclick="contarNumeros()">Contar</button>
+        
+        <div id="resultado"></div>
+    </div>
+    </section>
+
+    <footer>
+<p>&copy; JoaquinGonzalez</p>
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+</html>
