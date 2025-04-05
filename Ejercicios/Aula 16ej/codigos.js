@@ -1,32 +1,71 @@
-let num = document.querySelector('input#fnum')
-let lista = document.querySelector('select#flista')
-let res = document.querySelector('div#res')
-let valores = []
+const num = document.getElementById('fnum'); // Más directo que querySelector
+const lista = document.getElementById('flista');
+const res = document.getElementById('res');
+const valores = [];
 
 function isNumero(n) {
-    if (Number(n) >= 1 && Number(n) <= 100) {
-        return true
-    } else {
-        return false
-    }
+    return Number.isInteger(Number(n)) && n >= 1 && n <= 100;
 }
 
 function inLista(n, l) {
-    if (l.indexOf(Number(n)) != -1) {
-        return true
-    } else {
-        return false
-    }
+    return l.includes(Number(n));
 }
 
 function adicionar() {
-    if (isNumero(num.value) && !inLista(num.value, valores)) {
-        valores.push(Number(num.value))
-        let item = document.createElement('option')
-        item.text = `Valor ${num.value} agregado`
-        lista.appendChild(item)
-        res.innerHTML = '' // Limpiar resultados anteriores
+    if (num.value === '') {  // Validar campo vacío
+        alert('¡Campo vacío! Escribe un número.');
+        return;
+    }
+
+    if (!isNumero(num.value)) {
+        alert('Número inválido. Debe ser entero entre 1 y 100.');
+        num.value = '';
+        num.focus();
+        return;
+    }
+
+    if (inLista(num.value, valores)) {
+        alert('¡Este número ya está en la lista!');
+        num.value = '';
+        num.focus();
+        return;
+    }
+// Si pasa todas las validaciones:
+    
+    const numero = Number(num.value);
+    valores.push(numero);
+    const item = document.createElement('option');
+    item.text = `Valor ${numero} agregado.`;
+    lista.appendChild(item);
+    res.innerHTML = ''
+    num.value = '';
+    num.focus();
+}
+
+function finalizar() {
+    if (valores.length == 0) {
+        window.alert('Adicioe valores antes de finalizar!') 
     } else {
-        window.alert('Valor inválido o ya encontrado en la lista')
+        let tot = valores.length
+        let mayor = valores[0]
+        let menor = valores[0]
+        suma = 0
+        media = 0
+
+        for (let pos in valores){
+            suma += valores[pos]
+            if (valores[pos] > mayor)
+                mayor = valores[pos]
+            if (valores[pos] < menor)
+                menor = valores[pos]
+        }
+        media = suma / tot
+
+        res.innerHTML = ''
+        res.innerHTML += `<p> En total, tenemos ${tot} números agregados.</p>`
+        res.innerHTML += `<p> El mayor número agregado fue el ${mayor}.</p>`
+        res.innerHTML += `<p> El menor número agregado fue el ${menor}.</p>`
+        res.innerHTML += `<p> Sumando todos los valores, tenemos ${suma}.</p>`
+        res.innerHTML += `<p> La media entre todos los valores es ${media}</p>`
     }
 }
